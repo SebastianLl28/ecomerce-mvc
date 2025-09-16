@@ -1,32 +1,55 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
 <head>
   <meta charset="UTF-8">
   <title>Lista de Productos</title>
+  <link rel="stylesheet" th:href="@{/css/products.css}">
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
 </head>
 <body>
-<h1>Lista de Productos</h1>
-<table border="1">
-  <thead>
-  <tr>
-    <th>ID</th>
-    <th>Nombre</th>
-    <th>Descripción</th>
-    <th>Precio</th>
-    <th>Stock</th>
-  </tr>
-  </thead>
-  <tbody>
-  <!-- Iteramos la lista "productos" -->
-  <tr th:each="producto : ${productos}">
-    <td th:text="${producto.id}"></td>
-    <td th:text="${producto.name}"></td>
-    <td th:text="${producto.description}"></td>
-    <td th:text="${producto.price}"></td>
-    <td th:text="${producto.stock}"></td>
-  </tr>
-  </tbody>
-</table>
+<main class="main">
+  <aside class="aside">filtros</aside>
 
+  <section>
+    <h1>Lista de Productos</h1>
+
+    <div th:if="${#lists.isEmpty(productos)}">
+      <p>No hay productos disponibles.</p>
+    </div>
+
+    <div th:unless="${#lists.isEmpty(productos)}">
+      <ul class="list">
+        <li th:each="producto : ${productos}" class="card">
+          <!-- Para URL absoluta, usa directamente ${...}.
+               Si está vacío, usa un placeholder local -->
+          <img class="card__image" width="400"
+               th:src="${#strings.isEmpty(producto.imageUrl) ? '/img/placeholder.png' : producto.imageUrl}"
+               alt="Imagen del Producto"/>
+
+          <div class="card__container">
+            <p class="card__title" th:text="${producto.name}">Nombre del Producto</p>
+            <span th:text="${producto.description}">Descripción</span>
+            <span th:text="${producto.price}">Precio</span>
+            <span th:text="${producto.stock}">Stock</span>
+          </div>
+
+          <!-- OJO: usa 'producto' aquí -->
+          <button class="card__button btn-add-cart"
+                  th:attr="data-id=${producto.id},data-name=${producto.name}">
+            Añadir al carrito
+          </button>
+        </li>
+      </ul>
+    </div>
+  </section>
+</main>
+
+<!-- jQuery primero -->
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<!-- toastr después -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+<!-- tu JS -->
+<script th:src="@{/js/product.js}"></script>
 </body>
 </html>
