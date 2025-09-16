@@ -1,0 +1,489 @@
+/* BASE STYLES */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #f5f5f5;
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+/* TYPOGRAPHY */
+h1 {
+    color: #333;
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 2.2rem;
+}
+
+h2 {
+    color: #333;
+    border-bottom: 2px solid #007bff;
+    padding-bottom: 10px;
+    margin-top: 30px;
+    font-size: 1.5rem;
+}
+
+h3 {
+    color: #333;
+    margin: 20px 0 10px 0;
+}
+
+/* ALERTS */
+.alert {
+    padding: 12px 20px;
+    margin: 15px 0;
+    border-radius: 6px;
+    font-weight: 500;
+}
+
+.alert-success {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.alert-error {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+.alert-info {
+    background-color: #d1ecf1;
+    color: #0c5460;
+    border: 1px solid #bee5eb;
+}
+
+/* TABLES */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    background: white;
+}
+
+th, td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background-color: #f8f9fa;
+    font-weight: bold;
+    color: #333;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+tr:hover {
+    background-color: #f5f5f5;
+    transition: background-color 0.2s ease;
+}
+
+.info-table {
+    background: #f8f9fa;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.info-table td:first-child {
+    font-weight: bold;
+    background-color: #e9ecef;
+    width: 200px;
+    color: #495057;
+}
+
+.items-table tfoot {
+    background-color: #e7f3ff;
+    font-weight: bold;
+    font-size: 1.1rem;
+    color: #007bff;
+}
+
+/* BUTTONS */
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    text-align: center;
+    margin: 5px;
+    min-width: 120px;
+}
+
+.btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.btn-primary {
+    background-color: #007bff;
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+    color: white;
+}
+
+.btn-secondary:hover {
+    background-color: #545b62;
+}
+
+.btn-danger {
+    background-color: #dc3545;
+    color: white;
+}
+
+.btn-danger:hover {
+    background-color: #c82333;
+}
+
+.btn-success {
+    background-color: #28a745;
+    color: white;
+}
+
+.btn-success:hover {
+    background-color: #218838;
+}
+
+.btn-small {
+    padding: 6px 12px;
+    font-size: 12px;
+    min-width: auto;
+}
+
+/* FORMS */
+.form-section {
+    background-color: #f8f9fa;
+    padding: 25px;
+    border-radius: 8px;
+    margin: 20px 0;
+    border: 1px solid #dee2e6;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #333;
+    font-size: 14px;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 0 2px rgba(0,123,255,0.25);
+}
+
+.quantity-input {
+    width: 80px !important;
+    padding: 8px !important;
+    text-align: center;
+    margin-right: 10px;
+}
+
+.form-actions {
+    text-align: center;
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid #dee2e6;
+}
+
+/* STATUS BADGES */
+.status {
+    display: inline-block;
+    padding: 6px 12px;
+    border-radius: 15px;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 11px;
+    letter-spacing: 0.5px;
+}
+
+.status-pending {
+    background-color: #fff3cd;
+    color: #856404;
+    border: 1px solid #ffeaa7;
+}
+
+.status-confirmed {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.status-processing {
+    background-color: #cce5ff;
+    color: #004085;
+    border: 1px solid #b8daff;
+}
+
+.status-shipped {
+    background-color: #e2e3e5;
+    color: #383d41;
+    border: 1px solid #d6d8db;
+}
+
+.status-delivered {
+    background-color: #d1ecf1;
+    color: #0c5460;
+    border: 1px solid #bee5eb;
+}
+
+.status-cancelled {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+/* SPECIAL SECTIONS */
+.total-section {
+    background: linear-gradient(135deg, #e7f3ff, #cce5ff);
+    padding: 25px;
+    border-radius: 8px;
+    margin: 25px 0;
+    text-align: center;
+    border: 2px solid #007bff;
+    box-shadow: 0 2px 8px rgba(0,123,255,0.1);
+}
+
+.total-section h3 {
+    margin: 0 0 10px 0;
+    color: #007bff;
+    font-size: 1.8rem;
+    font-weight: bold;
+}
+
+.stats {
+    background: linear-gradient(135deg, #007bff, #0056b3);
+    color: white;
+    padding: 25px;
+    border-radius: 8px;
+    margin: 20px 0;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0,123,255,0.3);
+}
+
+.stats p {
+    margin: 8px 0;
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
+.order-info {
+    background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+    padding: 25px;
+    border-radius: 8px;
+    margin: 20px 0;
+    border: 1px solid #dee2e6;
+}
+
+.order-number {
+    display: inline-block;
+    background: linear-gradient(135deg, #007bff, #0056b3);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 25px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    margin: 10px 0;
+    box-shadow: 0 2px 8px rgba(0,123,255,0.3);
+}
+
+/* EMPTY STATES */
+.empty-cart,
+.empty-orders {
+    text-align: center;
+    padding: 60px 20px;
+    color: #666;
+    background: #f8f9fa;
+    border-radius: 8px;
+    margin: 20px 0;
+}
+
+.empty-cart h2,
+.empty-orders h2 {
+    color: #495057;
+    margin-bottom: 15px;
+}
+
+.empty-cart p,
+.empty-orders p {
+    font-size: 1.1rem;
+    margin-bottom: 25px;
+}
+
+/* PAGINATION */
+.pagination {
+    text-align: center;
+    margin: 40px 0;
+    padding: 25px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    border: 1px solid #dee2e6;
+}
+
+.pagination p {
+    margin-bottom: 15px;
+    font-size: 1rem;
+    color: #495057;
+}
+
+.pagination a {
+    margin: 0 10px;
+}
+
+/* NAVIGATION */
+.navigation {
+    text-align: center;
+    margin: 40px 0;
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 8px;
+}
+
+.navigation a {
+    margin: 0 15px;
+}
+
+/* ACTIONS */
+.actions {
+    text-align: center;
+    margin: 40px 0;
+    padding: 25px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    border: 1px solid #dee2e6;
+}
+
+.actions a,
+.actions button {
+    margin: 5px 10px;
+}
+
+/* RESPONSIVE DESIGN */
+@media (max-width: 768px) {
+    .container {
+        margin: 10px;
+        padding: 15px;
+    }
+
+    h1 {
+        font-size: 1.8rem;
+    }
+
+    table {
+        font-size: 14px;
+    }
+
+    th, td {
+        padding: 8px 6px;
+    }
+
+    .btn {
+        width: 100%;
+        margin: 5px 0;
+        padding: 12px;
+    }
+
+    .form-section {
+        padding: 15px;
+    }
+
+    .total-section {
+        padding: 20px 15px;
+    }
+
+    .stats {
+        padding: 20px 15px;
+    }
+
+    .stats p {
+        font-size: 1rem;
+    }
+
+    .order-number {
+        font-size: 1rem;
+        padding: 8px 16px;
+    }
+
+    .quantity-input {
+        width: 60px !important;
+    }
+
+    .info-table td:first-child {
+        width: 120px;
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        padding: 10px;
+    }
+
+    .container {
+        padding: 10px;
+    }
+
+    h1 {
+        font-size: 1.5rem;
+    }
+
+    h2 {
+        font-size: 1.3rem;
+    }
+
+    table {
+        font-size: 12px;
+    }
+
+    .total-section h3 {
+        font-size: 1.5rem;
+    }
+
+    .empty-cart,
+    .empty-orders {
+        padding: 40px 15px;
+    }
+}

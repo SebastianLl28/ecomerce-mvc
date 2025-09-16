@@ -1,32 +1,53 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Lista de Productos</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Productos</title>
+    <link rel="stylesheet" th:href="@{/static/css/order-styles.css}">
 </head>
 <body>
-<h1>Lista de Productos</h1>
-<table border="1">
-  <thead>
-  <tr>
-    <th>ID</th>
-    <th>Nombre</th>
-    <th>Descripción</th>
-    <th>Precio</th>
-    <th>Stock</th>
-  </tr>
-  </thead>
-  <tbody>
-  <!-- Iteramos la lista "productos" -->
-  <tr th:each="producto : ${productos}">
-    <td th:text="${producto.id}"></td>
-    <td th:text="${producto.name}"></td>
-    <td th:text="${producto.description}"></td>
-    <td th:text="${producto.price}"></td>
-    <td th:text="${producto.stock}"></td>
-  </tr>
-  </tbody>
-</table>
+<div class="container">
+    <h1>Lista de Productos</h1>
 
+    <div class="navigation">
+        <a href="/cart" class="btn btn-secondary">Ver Carrito</a>
+        <a href="/orders" class="btn btn-secondary">Mis Órdenes</a>
+    </div>
+
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Descripción</th>
+            <th>Precio</th>
+            <th>Stock</th>
+            <th>Acciones</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="producto : ${productos}">
+            <td th:text="${producto.id}"></td>
+            <td th:text="${producto.name}"></td>
+            <td th:text="${producto.description}"></td>
+            <td th:text="'$' + ${#numbers.formatDecimal(producto.price, 1, 2)}"></td>
+            <td th:text="${producto.stock}"></td>
+            <td>
+                <form action="/cart/add" method="post">
+                    <input type="hidden" name="productId" th:value="${producto.id}">
+                    <input type="number" name="quantity" value="1" min="1" th:max="${producto.stock}" class="quantity-input">
+                    <button type="submit" class="btn btn-primary" th:disabled="${producto.stock == 0}">
+                        <span th:if="${producto.stock > 0}">Agregar al Carrito</span>
+                        <span th:if="${producto.stock == 0}">Sin Stock</span>
+                    </button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<script th:src="@{/js/order-scripts.js}"></script>
 </body>
 </html>
