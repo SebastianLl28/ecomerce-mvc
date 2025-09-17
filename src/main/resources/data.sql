@@ -2,6 +2,18 @@ DELETE FROM order_item;
 DELETE FROM orders;
 DELETE FROM product;
 DELETE FROM category;
+DELETE FROM users;
+
+-- Insertar usuarios
+INSERT INTO users (id, first_name, last_name, email, password, phone, address, role, active, created_at) VALUES
+(1, 'Admin', 'Sistema', 'admin@ecommerce.com', 'password123', NULL, NULL, 'ADMIN', true, CURRENT_TIMESTAMP),
+(2, 'Juan', 'Pérez', 'juan@email.com', 'password123', '987654321', 'Av. Siempre Viva 123', 'CUSTOMER', true, CURRENT_TIMESTAMP),
+(3, 'María', 'Gómez', 'maria@email.com', 'password123', '912345678', 'Calle Falsa 456', 'CUSTOMER', true, CURRENT_TIMESTAMP);
+
+-- Restablecer las secuencias (importante para PostgreSQL)
+ALTER SEQUENCE users_id_seq RESTART WITH 4;
+ALTER SEQUENCE category_id_seq RESTART WITH 7;
+ALTER SEQUENCE product_id_seq RESTART WITH 13;
 
 INSERT INTO category (id, name, description, created_at) VALUES
                                                              (1, 'Bicicletas de Montaña', 'Ideales para senderos y terrenos difíciles.', CURRENT_TIMESTAMP),
