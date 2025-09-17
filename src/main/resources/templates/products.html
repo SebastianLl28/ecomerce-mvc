@@ -1,53 +1,55 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista de Productos</title>
-    <link rel="stylesheet" th:href="@{/static/css/order-styles.css}">
+  <meta charset="UTF-8">
+  <title>Lista de Productos</title>
+  <link rel="stylesheet" th:href="@{/css/products.css}">
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
 </head>
 <body>
-<div class="container">
+<main class="main">
+  <aside class="aside">filtros</aside>
+
+  <section>
     <h1>Lista de Productos</h1>
 
-    <div class="navigation">
-        <a href="/cart" class="btn btn-secondary">Ver Carrito</a>
-        <a href="/orders" class="btn btn-secondary">Mis Órdenes</a>
+    <div th:if="${#lists.isEmpty(productos)}">
+      <p>No hay productos disponibles.</p>
     </div>
 
-    <table>
-        <thead>
-        <tr>
-            <th>ID</th>
-            <th>Nombre</th>
-            <th>Descripción</th>
-            <th>Precio</th>
-            <th>Stock</th>
-            <th>Acciones</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="producto : ${productos}">
-            <td th:text="${producto.id}"></td>
-            <td th:text="${producto.name}"></td>
-            <td th:text="${producto.description}"></td>
-            <td th:text="'$' + ${#numbers.formatDecimal(producto.price, 1, 2)}"></td>
-            <td th:text="${producto.stock}"></td>
-            <td>
-                <form action="/cart/add" method="post">
-                    <input type="hidden" name="productId" th:value="${producto.id}">
-                    <input type="number" name="quantity" value="1" min="1" th:max="${producto.stock}" class="quantity-input">
-                    <button type="submit" class="btn btn-primary" th:disabled="${producto.stock == 0}">
-                        <span th:if="${producto.stock > 0}">Agregar al Carrito</span>
-                        <span th:if="${producto.stock == 0}">Sin Stock</span>
-                    </button>
-                </form>
-            </td>
-        </tr>
-        </tbody>
-    </table>
-</div>
+    <div th:unless="${#lists.isEmpty(productos)}">
+      <ul class="list">
+        <li th:each="producto : ${productos}" class="card">
+          <!-- Para URL absoluta, usa directamente ${...}.
+               Si está vacío, usa un placeholder local -->
+          <img class="card__image" width="400"
+               th:src="${#strings.isEmpty(producto.imageUrl) ? '/img/placeholder.png' : producto.imageUrl}"
+               alt="Imagen del Producto"/>
 
-<script th:src="@{/js/order-scripts.js}"></script>
+          <div class="card__container">
+            <p class="card__title" th:text="${producto.name}">Nombre del Producto</p>
+            <span th:text="${producto.description}">Descripción</span>
+            <span th:text="${producto.price}">Precio</span>
+            <span th:text="${producto.stock}">Stock</span>
+          </div>
+
+          <!-- OJO: usa 'producto' aquí -->
+          <button class="card__button btn-add-cart"
+                  th:attr="data-id=${producto.id},data-name=${producto.name}">
+            Añadir al carrito
+          </button>
+        </li>
+      </ul>
+    </div>
+  </section>
+</main>
+
+<!-- jQuery primero -->
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<!-- toastr después -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+<!-- tu JS -->
+<script th:src="@{/js/product.js}"></script>
 </body>
 </html>

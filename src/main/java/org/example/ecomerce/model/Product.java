@@ -30,7 +30,25 @@ public class Product {
   @Column(nullable = false, updatable = false)
   private Instant createdAt = Instant.now();
 
-  // Getters & Setters
+  private String imageUrl;
+
+  private Long categoryId;
+
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "categoryId", nullable = false, insertable = false, updatable = false)
+  private Category category;
+
+  public Product() {
+  }
+
+  public Category getCategory() {
+    return category;
+  }
+
+  public void setCategory(Category category) {
+    this.category = category;
+  }
+
   public Long getId() { return id; }
   public void setId(Long id) { this.id = id; }
 
@@ -48,4 +66,20 @@ public class Product {
 
   public Instant getCreatedAt() { return createdAt; }
   public void setCreatedAt(Instant createdAt) { this.createdAt = createdAt; }
+
+  public String getImageUrl() {
+    return imageUrl;
+  }
+
+  public void setImageUrl(String imageUrl) {
+    this.imageUrl = imageUrl;
+  }
+
+  public Long getCategoryId() {
+    return categoryId;
+  }
+
+  public void setCategoryId(Long categoryId) {
+    this.categoryId = categoryId;
+  }
 }
