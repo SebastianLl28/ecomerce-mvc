@@ -38,7 +38,7 @@
             <tr>
                 <th>🔖 Orden #</th>
                 <th>📅 Fecha</th>
-                <th>📍 Estado</th>
+                <!--<th>📍 Estado</th> -->
                 <th>💰 Total</th>
                 <th>📦 Items</th>
                 <th>⚙️ Acciones</th>
@@ -50,12 +50,12 @@
                     <strong th:text="${order.id}"></strong>
                 </td>
                 <td th:text="${#temporals.format(order.orderDate, 'dd/MM/yyyy HH:mm')}"></td>
-                <td>
+                <!--<td>
                     <span class="status" th:classappend="'status-' + ${order.status.name().toLowerCase()}"
                           th:text="${order.status.displayName}"></span>
-                </td>
+                </td>-->
                 <td>
-                    <strong th:text="' + ${#numbers.formatDecimal(order.totalAmount, 1, 2)}"></strong>
+                    <strong th:text="'$' + ${#numbers.formatDecimal(order.totalAmount, 1, 2)}"></strong>
                 </td>
                 <td th:text="${#lists.size(order.orderItems)} + ' productos'"></td>
                 <td>

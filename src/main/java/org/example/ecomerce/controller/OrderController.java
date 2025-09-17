@@ -34,6 +34,9 @@ public class OrderController {
 
     @GetMapping("/checkout")
     public String showCheckoutForm(HttpSession session, Model model) {
+        // Temporal: simular usuario logueado
+        session.setAttribute("userId", 1L);
+
         List<CartItem> cartItems = cartService.getCartItems(session);
 
         if (cartItems.isEmpty()) {

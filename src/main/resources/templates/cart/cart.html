@@ -1,85 +1,64 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Carrito de Compras</title>
-    <link rel="stylesheet" href="/css/order-styles.css">
+    <link rel="stylesheet" th:href="@{/css/products.css}">
+    <link rel="stylesheet" th:href="@{/css/cart.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
 </head>
 <body>
-<div class="container">
-    <h1>🛒 Carrito de Compras</h1>
-
-    <!-- Mensajes de éxito/error -->
-    <div th:if="${success}" class="alert alert-success">
-        <p th:text="${success}"></p>
-    </div>
-    <div th:if="${error}" class="alert alert-error">
-        <p th:text="${error}"></p>
-    </div>
-
-    <!-- Verificar si el carrito está vacío -->
-    <div th:if="${isEmpty}" class="empty-cart">
-        <h2>Tu carrito está vacío</h2>
-        <p>¡Explora nuestros productos y encuentra algo que te guste!</p>
-        <a href="/products" class="btn btn-primary">Continuar Comprando</a>
-    </div>
-
-    <!-- Mostrar items del carrito -->
-    <div th:if="${!isEmpty}">
-        <table>
-            <thead>
-            <tr>
-                <th>Producto</th>
-                <th>Precio Unitario</th>
-                <th>Cantidad</th>
-                <th>Subtotal</th>
-                <th>Acciones</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="item : ${cartItems}">
-                <td>
-                    <strong th:text="${item.productName}"></strong>
-                </td>
-                <td th:text="|$ ${#numbers.formatDecimal(item.productPrice, 1, 2)}|"></td>
-                <td>
-                    <form action="/cart/update" method="post">
-                        <input type="hidden" name="productId" th:value="${item.productId}">
-                        <input type="number" name="quantity" th:value="${item.quantity}"
-                               min="1" class="quantity-input">
-                        <button type="submit" class="btn btn-secondary btn-small update-quantity-btn">Actualizar</button>
-                    </form>
-                </td>
-                <td>
-                    <strong th:text="|$ ${#numbers.formatDecimal(item.subtotal, 1, 2)}|"></strong>
-                </td>
-                <td>
-                    <form action="/cart/remove" method="post">
-                        <input type="hidden" name="productId" th:value="${item.productId}">
-                        <button type="submit" class="btn btn-danger btn-small remove-item-btn">🗑️ Eliminar</button>
-                    </form>
-                </td>
-            </tr>
-
-            </tbody>
-        </table>
-
-        <div class="total-section">
-            <h3>Total: $<span class="cart-total" th:text="${#numbers.formatDecimal(cartTotal, 1, 2)}"></span></h3>
-            <p>Cantidad de items: <strong><span class="cart-counter" th:text="${cartItemCount}"></span></strong></p>
+<main class="main">
+    <section class="cart-section">
+        <div class="cart-header">
+            <h1>🛒 Carrito de Compras</h1>
+            <a href="/products" class="btn-back">← Seguir Comprando</a>
         </div>
 
-        <div class="actions">
-            <a href="/products" class="btn btn-secondary">🛍️ Continuar Comprando</a>
-            <a href="/orders/checkout" class="btn btn-primary">✅ Proceder al Checkout</a>
-            <form action="/cart/clear" method="post">
-                <button type="submit" class="btn btn-danger clear-cart-btn">🗑️ Vaciar Carrito</button>
-            </form>
+        <div th:if="${isEmpty}" class="empty-cart">
+            <h2>Tu carrito está vacío</h2>
+            <p>¡Explora nuestros productos y encuentra algo que te guste!</p>
+            <a href="/products" class="btn-primary">Ver Productos</a>
         </div>
-    </div>
-</div>
 
-<script src="/js/order-scripts.js"></script>
+        <div th:unless="${isEmpty}">
+            <div class="cart-items">
+                <div th:each="item : ${cartItems}" class="cart-item">
+                    <div class="item-info">
+                        <h3 th:text="${item.productName}"></h3>
+                        <p class="item-price" th:text="'$' + ${#numbers.formatDecimal(item.productPrice, 1, 2)}"></p>
+                    </div>
+
+                    <div class="item-quantity">
+                        <input type="number"
+                               th:value="${item.quantity}"
+                               min="1"
+                               class="quantity-input"
+                               th:attr="data-product-id=${item.productId}">
+                        <button class="btn-update" th:attr="data-product-id=${item.productId}">Actualizar</button>
+                    </div>
+
+                    <div class="item-subtotal">
+                        <span th:text="'$' + ${#numbers.formatDecimal(item.subtotal, 1, 2)}"></span>
+                        <button class="btn-remove" th:attr="data-product-id=${item.productId}">🗑️</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cart-total">
+                <h3>Total: $<span id="cart-total" th:text="${#numbers.formatDecimal(cartTotal, 1, 2)}"></span></h3>
+            </div>
+
+            <div class="cart-actions">
+                <button id="clear-cart" class="btn-danger">Vaciar Carrito</button>
+                <a href="/orders/checkout" class="btn-primary">Proceder al Checkout</a>
+            </div>
+        </div>
+    </section>
+</main>
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+<script th:src="@{/js/cart.js}"></script>
 </body>
 </html>

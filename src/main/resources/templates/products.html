@@ -14,6 +14,12 @@
   <section>
     <h1>Lista de Productos</h1>
 
+      <div class="cart-header">
+          <a href="/cart" class="cart-link">
+              🛒 Ver Carrito (<span id="cart-count">0</span>)
+          </a>
+      </div>
+
     <div th:if="${#lists.isEmpty(productos)}">
       <p>No hay productos disponibles.</p>
     </div>
@@ -35,10 +41,12 @@
           </div>
 
           <!-- OJO: usa 'producto' aquí -->
-          <button class="card__button btn-add-cart"
-                  th:attr="data-id=${producto.id},data-name=${producto.name}">
-            Añadir al carrito
-          </button>
+            <button class="card__button btn-add-cart"
+                    th:attr="data-id=${producto.id},data-name=${producto.name},data-price=${producto.price}"
+                    th:disabled="${producto.stock == 0}">
+                <span th:if="${producto.stock > 0}">Añadir al carrito</span>
+                <span th:if="${producto.stock == 0}">Sin stock</span>
+            </button>
         </li>
       </ul>
     </div>

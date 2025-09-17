@@ -1,12 +1,16 @@
-INSERT INTO category (id, name, description, created_at)
-VALUES (1, 'Bicicletas de Montaña', 'Ideales para senderos y terrenos difíciles.', NOW()),
-       (2, 'Bicicletas de Ruta', 'Diseñadas para velocidad y largas distancias en carretera.',
-        NOW()),
-       (3, 'Bicicletas Urbanas', 'Pensadas para comodidad y movilidad en la ciudad.', NOW()),
-       (4, 'Bicicletas Eléctricas', 'Con motor de asistencia al pedaleo y batería recargable.',
-        NOW()),
-       (5, 'Bicicletas BMX', 'Para acrobacias, saltos y estilo libre.', NOW()),
-       (6, 'Bicicletas Gravel', 'Versátiles para carretera y caminos de tierra.', NOW());
+DELETE FROM order_item;
+DELETE FROM orders;
+DELETE FROM product;
+DELETE FROM category;
+
+INSERT INTO category (id, name, description, created_at) VALUES
+                                                             (1, 'Bicicletas de Montaña', 'Ideales para senderos y terrenos difíciles.', CURRENT_TIMESTAMP),
+                                                             (2, 'Bicicletas de Ruta', 'Diseñadas para velocidad y largas distancias en carretera.', CURRENT_TIMESTAMP),
+                                                             (3, 'Bicicletas Urbanas', 'Pensadas para comodidad y movilidad en la ciudad.', CURRENT_TIMESTAMP),
+                                                             (4, 'Bicicletas Eléctricas', 'Con motor de asistencia al pedaleo y batería recargable.', CURRENT_TIMESTAMP),
+                                                             (5, 'Bicicletas BMX', 'Para acrobacias, saltos y estilo libre.', CURRENT_TIMESTAMP),
+                                                             (6, 'Bicicletas Gravel', 'Versátiles para carretera y caminos de tierra.', CURRENT_TIMESTAMP);
+
 
 -- Montaña
 INSERT INTO product (id, name, description, price, stock, created_at, image_url, category_id)

@@ -32,9 +32,9 @@
         <tbody>
         <tr th:each="item : ${cartItems}">
             <td th:text="${item.productName}"></td>
-            <td th:text="' + ${#numbers.formatDecimal(item.productPrice, 1, 2)}"></td>
+            <td th:text="'$' + ${#numbers.formatDecimal(item.productPrice, 1, 2)}"></td>
             <td th:text="${item.quantity}"></td>
-            <td th:text="' + ${#numbers.formatDecimal(item.subtotal, 1, 2)}"></td>
+            <td th:text="'$' + ${#numbers.formatDecimal(item.subtotal, 1, 2)}"></td>
         </tr>
         </tbody>
     </table>

@@ -33,7 +33,7 @@
                 <td>📅 Fecha del Pedido:</td>
                 <td th:text="${#temporals.format(order.orderDate, 'dd/MM/yyyy HH:mm')}"></td>
             </tr>
-            <tr>
+            <!--<tr>
                 <td>📍 Estado:</td>
                 <td>
                     <span class="status order-status" th:classappend="'status-' + ${order.status.name().toLowerCase()}"
@@ -41,11 +41,11 @@
                     <button class="btn btn-secondary btn-small refresh-status-btn"
                             th:attr="data-order-id=${order.id}">🔄 Actualizar</button>
                 </td>
-            </tr>
+            </tr> -->
             <tr>
                 <td>💰 Total:</td>
                 <td>
-                    <strong th:text="' + ${#numbers.formatDecimal(order.totalAmount, 1, 2)}"></strong>
+                    <strong th:text="'$' + ${#numbers.formatDecimal(order.totalAmount, 1, 2)}"></strong>
                 </td>
             </tr>
             <tr>
@@ -77,15 +77,15 @@
         <tbody>
         <tr th:each="item : ${order.orderItems}">
             <td th:text="${item.product.name}"></td>
-            <td th:text="' + ${#numbers.formatDecimal(item.unitPrice, 1, 2)}"></td>
+            <td th:text="'$' + ${#numbers.formatDecimal(item.unitPrice, 1, 2)}"></td>
             <td th:text="${item.quantity}"></td>
-            <td th:text="' + ${#numbers.formatDecimal(item.unitPrice * item.quantity, 1, 2)}"></td>
+            <td th:text="'$' + ${#numbers.formatDecimal(item.unitPrice * item.quantity, 1, 2)}"></td>
         </tr>
         </tbody>
         <tfoot>
         <tr>
             <td colspan="3"><strong>Total:</strong></td>
-            <td><strong th:text="' + ${#numbers.formatDecimal(order.totalAmount, 1, 2)}"></strong></td>
+            <td><strong th:text="'$' + ${#numbers.formatDecimal(order.totalAmount, 1, 2)}"></strong></td>
         </tr>
         </tfoot>
     </table>
