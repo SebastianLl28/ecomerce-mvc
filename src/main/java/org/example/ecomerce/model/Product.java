@@ -27,15 +27,17 @@ public class Product {
   private Integer stock;
 
   @CreationTimestamp
-  @Column(nullable = false, updatable = false)
-  private Instant createdAt = Instant.now();
+  @Column(name = "created_at", nullable = false, updatable = false)
+  private Instant createdAt;
 
+  @Column(name = "image_url")
   private String imageUrl;
 
+  @Column(name = "category_id", nullable = false)
   private Long categoryId;
 
   @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "categoryId", nullable = false, insertable = false, updatable = false)
+  @JoinColumn(name = "category_id", referencedColumnName = "id", insertable = false, updatable = false)
   private Category category;
 
   public Product() {

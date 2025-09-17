@@ -80,3 +80,46 @@ document.addEventListener("DOMContentLoaded", function () {
     // Actualizar contador al cargar la página
     updateCartCounter();
 });
+
+(function () {
+    const rangeMin = document.getElementById('rangeMin');
+    const rangeMax = document.getElementById('rangeMax');
+    const minVal  = document.getElementById('rangeMinVal');
+    const maxVal  = document.getElementById('rangeMaxVal');
+    const inputMin = document.getElementById('priceMin');
+    const inputMax = document.getElementById('priceMax');
+
+    if (!rangeMin || !rangeMax) return;
+
+    const initMin = parseFloat(inputMin?.value || '0');
+    const initMax = parseFloat(inputMax?.value || '10000');
+    rangeMin.value = isNaN(initMin) ? 0 : initMin;
+    rangeMax.value = isNaN(initMax) ? 10000 : initMax;
+    minVal.textContent = `S/ ${rangeMin.value}`;
+    maxVal.textContent = `S/ ${rangeMax.value}`;
+
+    const clamp = () => {
+        if (+rangeMin.value > +rangeMax.value) {
+            const t = rangeMin.value;
+            rangeMin.value = rangeMax.value;
+            rangeMax.value = t;
+        }
+        minVal.textContent = `S/ ${rangeMin.value}`;
+        maxVal.textContent = `S/ ${rangeMax.value}`;
+        if (inputMin) inputMin.value = rangeMin.value;
+        if (inputMax) inputMax.value = rangeMax.value;
+    };
+
+    rangeMin.addEventListener('input', clamp);
+    rangeMax.addEventListener('input', clamp);
+
+    const syncFromInputs = () => {
+        const vMin = parseFloat(inputMin.value || '0');
+        const vMax = parseFloat(inputMax.value || '0');
+        if (!isNaN(vMin)) rangeMin.value = vMin;
+        if (!isNaN(vMax)) rangeMax.value = vMax;
+        clamp();
+    };
+    inputMin?.addEventListener('change', syncFromInputs);
+    inputMax?.addEventListener('change', syncFromInputs);
+})();
