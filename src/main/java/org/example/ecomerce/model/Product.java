@@ -27,10 +27,30 @@ public class Product {
   private Integer stock;
 
   @CreationTimestamp
-  @Column(nullable = false, updatable = false)
-  private Instant createdAt = Instant.now();
+  @Column(name = "created_at", nullable = false, updatable = false)
+  private Instant createdAt;
 
-  // Getters & Setters
+  @Column(name = "image_url")
+  private String imageUrl;
+
+  @Column(name = "category_id", nullable = false)
+  private Long categoryId;
+
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "category_id", referencedColumnName = "id", insertable = false, updatable = false)
+  private Category category;
+
+  public Product() {
+  }
+
+  public Category getCategory() {
+    return category;
+  }
+
+  public void setCategory(Category category) {
+    this.category = category;
+  }
+
   public Long getId() { return id; }
   public void setId(Long id) { this.id = id; }
 
@@ -48,4 +68,20 @@ public class Product {
 
   public Instant getCreatedAt() { return createdAt; }
   public void setCreatedAt(Instant createdAt) { this.createdAt = createdAt; }
+
+  public String getImageUrl() {
+    return imageUrl;
+  }
+
+  public void setImageUrl(String imageUrl) {
+    this.imageUrl = imageUrl;
+  }
+
+  public Long getCategoryId() {
+    return categoryId;
+  }
+
+  public void setCategoryId(Long categoryId) {
+    this.categoryId = categoryId;
+  }
 }
