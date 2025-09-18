@@ -3,49 +3,104 @@
 <head>
     <meta charset="UTF-8">
     <title>Gestión de Usuarios</title>
-    <style>
-        body { font-family: Arial, sans-serif; margin: 40px; }
-        table { border-collapse: collapse; width: 100%; margin-top: 20px; }
-        th, td { border: 1px solid #ddd; padding: 12px; text-align: left; }
-        th { background-color: #f2f2f2; }
-        .btn { padding: 8px 16px; text-decoration: none; border-radius: 4px; }
-        .btn-primary { background-color: #007bff; color: white; }
-        .btn-success { background-color: #28a745; color: white; }
-        .btn-warning { background-color: #ffc107; color: black; }
-        .btn-danger { background-color: #dc3545; color: white; }
-    </style>
+    <link rel="stylesheet" href="/css/users.css">
 </head>
 <body>
-    <h1>Gestión de Usuarios</h1>
-    
-    <a th:href="@{/users/create}" class="btn btn-primary">Crear Nuevo Usuario</a>
-    
-    <table>
-        <thead>
+<div class="container">
+    <div class="header">
+        <h1>👥 Gestión de Usuarios</h1>
+        <a th:href="@{/users/create}" class="btn btn-primary">
+            <span>➕</span> Crear Nuevo Usuario
+        </a>
+    </div>
+
+    <div th:if="${success}" class="alert alert-success" id="successAlert">
+        <span th:text="${success}"></span>
+    </div>
+
+    <div th:if="${error}" class="alert alert-error" id="errorAlert">
+        <span th:text="${error}"></span>
+    </div>
+
+    <div class="table-container">
+        <table>
+            <thead>
             <tr>
                 <th>ID</th>
-                <th>Nombre</th>
+                <th>Nombre Completo</th>
                 <th>Email</th>
                 <th>Rol</th>
+                <th>Estado</th>
                 <th>Acciones</th>
             </tr>
-        </thead>
-        <tbody>
-            <tr th:each="user : ${users}">
+            </thead>
+            <tbody>
+            <tr th:each="user : ${users}" th:classappend="${!user.active} ? 'user-inactive'">
                 <td th:text="${user.id}"></td>
                 <td th:text="${user.fullName}"></td>
                 <td th:text="${user.email}"></td>
-                <td th:text="${user.role}"></td>
                 <td>
-                    <a th:href="@{/users/{id}(id=${user.id})}" class="btn btn-success">Ver</a>
-                    <a th:href="@{/users/{id}/edit(id=${user.id})}" class="btn btn-warning">Editar</a>
-                    <a th:href="@{/users/{id}/delete(id=${user.id})}" class="btn btn-danger" 
-                       onclick="return confirm('¿Estás seguro de eliminar este usuario?')">Eliminar</a>
+                    <span th:class="${user.role.name() == 'ADMIN'} ? 'role-admin' : 'role-customer'"
+                          th:text="${user.role}"></span>
+                </td>
+                <td>
+                    <span th:class="${user.active} ? 'status-active' : 'status-inactive'"
+                          th:text="${user.active} ? 'Activo' : 'Inactivo'"></span>
+                </td>
+                <td class="actions">
+                    <a th:href="@{/users/{id}(id=${user.id})}"
+                       class="btn btn-success btn-sm"
+                       title="Ver detalles">
+                        👁️ Ver
+                    </a>
+                    <a th:href="@{/users/{id}/edit(id=${user.id})}"
+                       class="btn btn-warning btn-sm"
+                       title="Editar usuario">
+                        ✏️ Editar
+                    </a>
+                    <button type="button"
+                            class="btn btn-danger btn-sm delete-btn"
+                            th:data-user-id="${user.id}"
+                            th:data-user-name="${user.fullName}"
+                            title="Eliminar usuario">
+                        🗑️ Eliminar
+                    </button>
                 </td>
             </tr>
-        </tbody>
-    </table>
-    
-    <a th:href="@{/}">Volver al Inicio</a>
+            </tbody>
+        </table>
+
+        <div th:if="${#lists.isEmpty(users)}" class="no-data">
+            <p>📭 No hay usuarios registrados</p>
+            <a th:href="@{/users/create}" class="btn btn-primary">Crear primer usuario</a>
+        </div>
+    </div>
+
+    <div class="footer-nav">
+        <a th:href="@{/products}" class="btn btn-secondary">🏠 Ir a Productos</a>
+        <a th:href="@{/}" class="btn btn-secondary">🔙 Volver al Inicio</a>
+    </div>
+</div>
+
+<div id="deleteModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>⚠️ Confirmar eliminación</h3>
+            <span class="close">&times;</span>
+        </div>
+        <div class="modal-body">
+            <p>¿Estás seguro de que deseas eliminar al usuario <strong id="userToDelete"></strong>?</p>
+            <p><small>Esta acción no se puede deshacer.</small></p>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" id="cancelDelete">Cancelar</button>
+            <form id="deleteForm" method="post" style="display: inline;">
+                <button type="submit" class="btn btn-danger">Sí, eliminar</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="/js/users.js"></script>
 </body>
 </html>

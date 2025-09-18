@@ -95,8 +95,3 @@ public class User {
         return firstName + " " + lastName;
     }
 }
-
-// Enum para roles de usuario
-enum UserRole {
-    CUSTOMER, ADMIN
-}

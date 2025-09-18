@@ -37,4 +37,19 @@ public class UserService {
     public boolean existsByEmail(String email) {
         return userRepository.existsByEmail(email);
     }
+
+    public Optional<User> authenticate(String email, String password) {
+        Optional<User> userOpt = findByEmail(email);
+
+        if (userOpt.isPresent()) {
+            User user = userOpt.get();
+            // Verificar que esté activo y la contraseña coincida
+            if (user.getActive() && user.getPassword().equals(password)) {
+                return Optional.of(user);
+            }
+        }
+        return Optional.empty();
+    }
+
+
 }
