@@ -3,9 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title>Detalles del Usuario</title>
+    <link rel="stylesheet" href="/css/navbar.css">
     <link rel="stylesheet" href="/css/users.css">
 </head>
 <body>
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
 <div class="container">
     <div class="header">
         <h1>👤 Detalles del Usuario</h1>
@@ -66,7 +69,7 @@
                 <div class="detail-item">
                     <label>Rol:</label>
                     <span th:class="${user.role.name() == 'ADMIN'} ? 'role-admin' : 'role-customer'"
-                          th:text="${user.role}"></span>
+                          th:text="${user.role.displayName}"></span>
                 </div>
                 <div class="detail-item">
                     <label>Estado:</label>

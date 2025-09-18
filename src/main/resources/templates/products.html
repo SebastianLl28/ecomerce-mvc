@@ -4,10 +4,12 @@
   <meta charset="UTF-8">
   <title>Lista de Productos</title>
   <link rel="stylesheet" th:href="@{/css/products.css}">
-  <link rel="stylesheet"
+    <link rel="stylesheet" href="/css/navbar.css">
+    <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
 </head>
 <body>
+<div th:replace="~{fragments/navbar :: navbar}"></div>
 <main class="main">
   <h1>Lista de Productos</h1>
   <aside class="aside">

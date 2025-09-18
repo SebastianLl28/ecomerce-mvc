@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const deleteForm = document.getElementById('deleteForm');
     const userToDeleteSpan = document.getElementById('userToDelete');
     const cancelDeleteBtn = document.getElementById('cancelDelete');
-    const closeModal = document.querySelector('.close');
+    const closeModal = document.querySelector('.modal .close'); // Selector más específico
     const successAlert = document.getElementById('successAlert');
     const errorAlert = document.getElementById('errorAlert');
 
@@ -58,97 +58,66 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Cerrar modal con ESC
     document.addEventListener('keydown', function(event) {
-        if (event.key === 'Escape' && deleteModal.style.display === 'block') {
+        if (event.key === 'Escape' && deleteModal && deleteModal.style.display === 'block') {
             closeDeleteModal();
         }
     });
 
     // Funciones auxiliares
     function showModal() {
-        deleteModal.style.display = 'block';
-        document.body.style.overflow = 'hidden';
+        if (deleteModal) {
+            deleteModal.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
     }
 
     function hideModal() {
-        deleteModal.style.display = 'none';
-        document.body.style.overflow = 'auto';
+        if (deleteModal) {
+            deleteModal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
     }
 
     function hideAlert(alertElement) {
-        alertElement.style.animation = 'slideUp 0.3s ease-out reverse';
-        setTimeout(() => {
-            if (alertElement.parentNode) {
-                alertElement.remove();
-            }
-        }, 300);
-    }
-
-    // Confirmar navegación si hay cambios no guardados
-    let hasUnsavedChanges = false;
-
-    // Detectar cambios en formularios (si los hay)
-    const forms = document.querySelectorAll('form');
-    forms.forEach(form => {
-        const inputs = form.querySelectorAll('input, select, textarea');
-        inputs.forEach(input => {
-            input.addEventListener('change', () => {
-                hasUnsavedChanges = true;
-            });
-        });
-
-        form.addEventListener('submit', () => {
-            hasUnsavedChanges = false;
-        });
-    });
-
-    // Confirmar antes de salir si hay cambios
-    window.addEventListener('beforeunload', function(event) {
-        if (hasUnsavedChanges) {
-            event.preventDefault();
-            event.returnValue = '';
+        // Implementa una animación de salida si es necesario
+        if (alertElement) {
+            alertElement.style.transition = 'opacity 0.5s ease';
+            alertElement.style.opacity = '0';
+            setTimeout(() => alertElement.remove(), 500);
         }
-    });
+    }
 
     // Filtrado de tabla (funcionalidad básica)
     function addTableFilter() {
-        const filterContainer = document.querySelector('.header');
+        const header = document.querySelector('.header');
+        const usersTable = document.getElementById('usersTable');
+
+        // Solo agregar filtro si existe la tabla y el header
+        if (!header || !usersTable) return;
+
         const filterInput = document.createElement('input');
         filterInput.type = 'text';
         filterInput.placeholder = '🔍 Buscar usuarios...';
-        filterInput.style.cssText = `
-            padding: 8px 12px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            margin-left: 20px;
-        `;
+        // ✨ MEJORA: Usar clase CSS en lugar de estilos en línea
+        filterInput.className = 'header-search-filter';
 
-        filterContainer.appendChild(filterInput);
+        header.appendChild(filterInput);
 
         filterInput.addEventListener('input', function() {
             const filter = this.value.toLowerCase();
-            const rows = document.querySelectorAll('#usersTable tbody tr');
+            const rows = usersTable.querySelectorAll('tbody tr');
 
             rows.forEach(row => {
                 const text = row.textContent.toLowerCase();
-                if (text.includes(filter)) {
-                    row.style.display = '';
-                } else {
-                    row.style.display = 'none';
-                }
+                row.style.display = text.includes(filter) ? '' : 'none';
             });
         });
     }
 
-    // Agregar filtro de búsqueda
-    addTableFilter();
-
-    // Tooltips simples
-    const tooltipElements = document.querySelectorAll('[title]');
-    tooltipElements.forEach(element => {
-        element.addEventListener('mouseenter', function() {
-            this.style.position = 'relative';
-        });
-    });
+    // Agregar filtro de búsqueda solo en la página de lista
+    if (document.getElementById('usersTable')) {
+        addTableFilter();
+    }
 
     console.log('Users management script loaded successfully');
 });

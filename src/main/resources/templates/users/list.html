@@ -3,9 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title>Gestión de Usuarios</title>
+    <link rel="stylesheet" href="/css/navbar.css">
     <link rel="stylesheet" href="/css/users.css">
 </head>
 <body>
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
 <div class="container">
     <div class="header">
         <h1>👥 Gestión de Usuarios</h1>
@@ -23,7 +26,7 @@
     </div>
 
     <div class="table-container">
-        <table>
+        <table id="usersTable">
             <thead>
             <tr>
                 <th>ID</th>
@@ -40,12 +43,12 @@
                 <td th:text="${user.fullName}"></td>
                 <td th:text="${user.email}"></td>
                 <td>
-                    <span th:class="${user.role.name() == 'ADMIN'} ? 'role-admin' : 'role-customer'"
-                          th:text="${user.role}"></span>
+                            <span th:class="${user.role.name() == 'ADMIN'} ? 'role-admin' : 'role-customer'"
+                                  th:text="${user.role.displayName}"></span>
                 </td>
                 <td>
-                    <span th:class="${user.active} ? 'status-active' : 'status-inactive'"
-                          th:text="${user.active} ? 'Activo' : 'Inactivo'"></span>
+                            <span th:class="${user.active} ? 'status-active' : 'status-inactive'"
+                                  th:text="${user.active} ? 'Activo' : 'Inactivo'"></span>
                 </td>
                 <td class="actions">
                     <a th:href="@{/users/{id}(id=${user.id})}"
