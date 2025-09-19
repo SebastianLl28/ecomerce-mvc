@@ -2,9 +2,9 @@
 Tienda virtual de bicicletas con catálogo filtrable, carrito de compras y generación/consulta de órdenes.
 
 ## Requisitos
-- Java 17 (java -version)
-- Maven 3.8+ (mvn -v)
-- PostgreSQL 13+ (local o vía Docker)
+- Java 17 (java -version) [link de descarga](https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html)
+- Maven 3.8+ (mvn -v) [link de descarga](https://maven.apache.org/download.cgi)
+- PostgreSQL 13+ (local o vía Docker) [link de descarga](https://www.postgresql.org/download/)
 
 ## Pasos para ejecutar
 1. Clonar el proyecto
