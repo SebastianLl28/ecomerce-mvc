@@ -23,7 +23,7 @@ spring.datasource.password=tu_contraseña
 ```
 4. Ejecutar la aplicación
 ```bash
-cd ecomerce
+cd ecomerce-mvc
 mvn spring-boot:run
 ```
 5. Acceder a la aplicación en el navegador
